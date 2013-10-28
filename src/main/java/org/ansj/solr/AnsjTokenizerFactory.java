@@ -20,16 +20,18 @@ import org.apache.lucene.util.AttributeSource.AttributeFactory;
 public class AnsjTokenizerFactory extends TokenizerFactory implements ResourceLoaderAware , UpdateKeeper.UpdateJob{
 
 	private int analysisType = 0;
+	private boolean rmPunc = true;
 	private ResourceLoader loader; 
 	
 	private long lastUpdateTime = -1;
 	private String conf = null;
 	
 	
-	protected AnsjTokenizerFactory(Map<String, String> args) {
+	public AnsjTokenizerFactory(Map<String, String> args) {
 		super(args);
 		assureMatchVersion();
 		analysisType = getInt(args, "analysisType", 0);
+		rmPunc = getBoolean(args, "rmPunc", true);
 		conf = get(args, "conf");
 		System.out.println(":::ansj:construction::::::::::::::::::::::::::" + conf);
 	}
@@ -65,7 +67,7 @@ public class AnsjTokenizerFactory extends TokenizerFactory implements ResourceLo
 
 	@Override
 	public Tokenizer create(AttributeFactory factory, Reader input) {
-		return new AnsjTokenizer(input, analysisType);
+		return new AnsjTokenizer(input, analysisType, rmPunc);
 	}
 	
 	public static List<String> SplitFileNames(String fileNames) {
