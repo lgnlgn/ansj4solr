@@ -1,4 +1,4 @@
-ansj4solr
+ansj4solr（不再维护，未来可能删除：请去https://github.com/mlcsdev/mlcsseg）
 =========
 
 solr的ansj分词插件，支持4.3以上
